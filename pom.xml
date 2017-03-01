@@ -441,7 +441,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <data.directory>/data/webprotege</data.directory>
+                <!--data.directory>/data/webprotege</data.directory-->
+                <data.directory>data</data.directory>
                 <application.host>localhost</application.host>
                 <!-- No admin email by default -->
                 <admin.email/>
@@ -539,7 +540,6 @@
                             </execution>
                         </executions>
                     </plugin>
-
                 </plugins>
             </build>
         </profile>

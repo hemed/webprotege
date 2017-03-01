@@ -3,6 +3,7 @@ package edu.stanford.bmir.protege.web.client.rpc;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import edu.stanford.bmir.protege.web.client.rpc.data.*;
+import edu.stanford.bmir.protege.web.client.ui.search.SearchContext;
 
 import java.util.List;
 
@@ -77,6 +78,10 @@ public interface OntologyService extends RemoteService {
 
     public PaginationData<EntityData> search(String projectName, String searchString, ValueType valueType, int start, int limit, String sort, String dir);
 
+    /**
+     * public PaginationData<EntityData> search(String projectName, SearchContext context, String searchString, ValueType valueType, int start, int limit, String sort, String dir);
+     **/
+
     public List<EntityData> search(String projectName, String searchString);
 
     public List<EntityData> search(String projectName, String searchString, ValueType valueType);
@@ -98,6 +103,4 @@ public interface OntologyService extends RemoteService {
     public EntityData replaceExternalReference(String projectName, String entityName, BioPortalReferenceData bpRefData,
                                         EntityData oldValueEntityData,
                                         String user, String operationDescription);
-
-
 }

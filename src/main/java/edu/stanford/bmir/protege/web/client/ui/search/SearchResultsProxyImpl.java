@@ -10,19 +10,17 @@ import edu.stanford.bmir.protege.web.client.rpc.data.PaginationData;
 import edu.stanford.bmir.protege.web.client.rpc.data.ValueType;
 import edu.stanford.bmir.protege.web.client.ui.util.GWTProxy;
 import edu.stanford.bmir.protege.web.shared.project.ProjectId;
+import edu.stanford.bmir.protege.web.shared.selection.SelectionModel;
 
 import java.util.List;
 
 public class SearchResultsProxyImpl extends GWTProxy {
 
     private ProjectId projectId;
-
     private final AsyncCallback<Boolean> asyncCallback;
-
-
     private String searchText = null;
-
     private ValueType valueType = null;
+    private SearchContext context;
 
 
 
@@ -47,6 +45,13 @@ public class SearchResultsProxyImpl extends GWTProxy {
         this.searchText = searchText;
     }
 
+    /**
+     * Restrict search to a particular context
+     */
+    public void setSearchContext(SearchContext searchContext){
+        this.context = searchContext;
+    }
+
     public ValueType getValueType() {
         return valueType;
     }
@@ -62,7 +67,6 @@ public class SearchResultsProxyImpl extends GWTProxy {
 
     @Override
     public void load(int start, int limit, String sort, String dir, final JavaScriptObject o, UrlParam[] baseParams) {
-
         OntologyServiceManager.getInstance().search(projectId, searchText, valueType, start, limit, sort, dir, new AsyncCallback<PaginationData<EntityData>>() {
             public void onFailure(Throwable caught) {
                 GWT.log("Error at search", caught);

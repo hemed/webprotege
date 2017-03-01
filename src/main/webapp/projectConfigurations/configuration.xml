@@ -1,0 +1,267 @@
+<!--  This tab provides an example for using forms and grids -->
+<tabs>
+
+    <!-- ********************************** -->
+    <!--          Classes Tab               -->
+    <!-- ********************************** -->
+    <tab>
+        <name>edu.stanford.bmir.protege.web.client.ui.ontology.classes.ClassesTab</name>
+        <label>Class Hierarchy</label>
+        <columns>
+
+            <!-- Column 1 -->
+            <column>
+                <width>0.25</width>
+                <portlets>
+                    <portlet>
+                        <name>edu.stanford.bmir.protege.web.client.ui.ontology.classes.ClassTreePortlet</name>
+                        <height>570</height>
+                        <width>200</width>
+                    </portlet>
+                </portlets>
+            </column>
+
+            <!-- Column 2 -->
+            <column>
+                <width>0.55</width>
+                <portlets>
+                    <portlet>
+                        <name>edu.stanford.bmir.protege.web.client.ui.editor.EditorPortlet</name>
+                        <height>570</height>
+                        <width>0</width>
+                    </portlet>
+                </portlets>
+            </column>
+
+            <!-- Column 3 -->
+            <column>
+                <width>0.20</width>
+                <portlets>
+                    <portlet>
+                        <name>edu.stanford.bmir.protege.web.client.ui.projectfeed.ProjectFeedPortlet</name>
+                        <height>170</height>
+                        <width>0</width>
+                    </portlet>
+                    <portlet>
+                        <name>edu.stanford.bmir.protege.web.client.ui.notes.DiscussionThreadPortlet</name>
+                        <height>390</height>
+                        <width>0</width>
+                    </portlet>
+                </portlets>
+            </column>
+
+        </columns>
+        <controllingPortlet reference="../columns/column/portlets/portlet"/>
+    </tab>
+
+
+    <!-- ********************************** -->
+    <!--          Properties Tab            -->
+    <!-- ********************************** -->
+    <tab>
+        <name>edu.stanford.bmir.protege.web.client.ui.ontology.properties.PropertiesTab</name>
+        <label>Properties</label>
+        <columns>
+
+            <!-- Column 1 -->
+            <column>
+                <width>0.25</width>
+                <portlets>
+                    <portlet>
+                        <name>edu.stanford.bmir.protege.web.client.ui.ontology.properties.PropertiesTreePortlet</name>
+                        <height>570</height>
+                        <width>200</width>
+                    </portlet>
+                </portlets>
+            </column>
+
+            <!-- Column 2 -->
+            <column>
+                <width>0.55</width>
+                <portlets>
+                    <portlet>
+                        <name>edu.stanford.bmir.protege.web.client.ui.editor.EditorPortlet</name>
+                        <height>570</height>
+                        <width>0</width>
+                    </portlet>
+                </portlets>
+            </column>
+
+            <!-- Column 3 -->
+            <column>
+                <width>0.20</width>
+                <portlets>
+                    <portlet>
+                        <name>edu.stanford.bmir.protege.web.client.ui.projectfeed.ProjectFeedPortlet</name>
+                        <height>170</height>
+                        <width>0</width>
+                    </portlet>
+                    <portlet>
+                        <name>edu.stanford.bmir.protege.web.client.ui.notes.DiscussionThreadPortlet</name>
+                        <height>390</height>
+                        <width>0</width>
+                    </portlet>
+                </portlets>
+            </column>
+
+
+        </columns>
+        <controllingPortlet reference="../columns/column/portlets/portlet"/>
+    </tab>
+
+
+<tab>
+    <name>edu.stanford.bmir.protege.web.client.ui.tab.UserDefinedTab</name>
+    <label>Document Tab</label>
+    <columns>
+        <!-- Column 1 -->
+        <column>
+            <width>0.33</width>
+            <portlets>
+                <portlet>
+                    <name>edu.stanford.bmir.protege.web.client.ui.ontology.individuals.IndividualsListPortlet</name>
+                    <properties>
+                        <entry>
+                            <string>showOnlyClass</string>
+                            <string>Document</string>
+                        </entry>
+                    </properties>
+                    <height>600</height>
+                    <width>200</width>
+                </portlet>
+            </portlets>
+        </column>
+
+        <!-- Column 2 -->
+        <column>
+            <width>0.66</width>
+            <portlets>
+                <portlet>
+                    <name>edu.stanford.bmir.protege.web.client.ui.portlet.propertyForm.PropertyFieldPortlet</name>
+                    <label>Hello World</label>
+                    <height>200</height>
+                    <width>0</width>
+                    <properties>
+                        <entry>
+                            <string>tabs</string>
+                            <list>
+                                <map>
+                                    <entry>
+                                        <string>title</string>
+                                        <string>Contents</string>
+                                    </entry>
+
+                                    <entry>
+                                        <string>contents</string>
+                                        <map>
+                                            <entry>
+                                                <string>name</string>
+                                                <string>contents</string> <!-- Use fully qualified name for OWL properties -->
+                                            </entry>
+                                            <entry>
+                                                <string>label</string>
+                                                <string>Contents</string>
+                                            </entry>
+                                            <entry>
+                                                <string>tooltip</string>
+                                                <string>The contents of the newspaper is modeled as a list of instances
+                                                    of class Content.
+                                                </string>
+                                            </entry>
+                                            <entry>
+                                                <string>help</string>
+                                                <string>
+                                                    http://protege.stanford.edu/doc/users_guide/newspaper_example.html
+                                                </string>
+                                            </entry>
+                                            <entry>
+                                                <string>index</string>
+                                                <string>1</string>
+                                            </entry>
+                                            <entry>
+                                                <string>height</string>
+                                                <string>200</string>
+                                            </entry>
+                                            <entry>
+                                                <string>component_type</string>
+                                                <string>grid</string>
+                                            </entry>
+                                            <entry>
+                                                <string>show_add_existing</string>
+                                                <boolean>true</boolean>
+                                            </entry>
+                                            <entry>
+                                                <string>ont_type</string>
+                                                <string>Content</string>
+                                            </entry>
+                                            <entry>
+                                                <string>multiple_values_allowed</string>
+                                                <boolean>true</boolean>
+                                            </entry>
+                                            <entry>
+                                                <string>Column1</string>
+                                                <map>
+                                                    <entry>
+                                                        <string>header</string>
+                                                        <string>Headline</string>
+                                                    </entry>
+                                                    <entry>
+                                                        <string>width</string>
+                                                        <string>all</string>
+                                                    </entry>
+                                                    <entry>
+                                                        <string>property</string>
+                                                        <string>headline</string> <!-- use fully qualified name for OWL properties -->
+                                                    </entry>
+                                                    <entry>
+                                                        <string>index</string>
+                                                        <string>0</string>
+                                                    </entry>
+                                                </map>
+                                            </entry>
+                                            <entry>
+                                                <string>Column2</string>
+                                                <map>
+                                                    <entry>
+                                                        <string>header</string>
+                                                        <string>Expiration date</string>
+                                                    </entry>
+                                                    <entry>
+                                                        <string>width</string>
+                                                        <string>100</string>
+                                                    </entry>
+                                                    <entry>
+                                                        <string>property</string>
+                                                        <string>expiration_date
+                                                        </string> <!-- use fully qualified name for OWL properties -->
+                                                    </entry>
+                                                    <entry>
+                                                        <string>index</string>
+                                                        <string>1</string>
+                                                    </entry>
+                                                    <entry>
+                                                        <string>field_type</string>
+                                                        <string>combobox</string>
+                                                    </entry>
+                                                    <entry>
+                                                        <string>allowed_values</string>
+                                                        <list>
+                                                            <string>today</string>
+                                                            <string>tomorrow</string>
+                                                        </list>
+                                                    </entry>
+                                                </map>
+                                            </entry>
+                                        </map>
+                                    </entry>
+                                </map>
+                            </list>
+                        </entry>
+                    </properties>
+                </portlet>
+            </portlets>
+        </column>
+    </columns>
+    <controllingPortlet reference="../columns/column/portlets/portlet"/>
+</tab>
+        <!-- End of user defined tab -->

@@ -3,9 +3,11 @@ package edu.stanford.bmir.protege.web.client.ui.ontology.individuals;
 import com.google.common.base.Optional;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.widgets.Button;
+import com.gwtext.client.widgets.Component;
 import com.gwtext.client.widgets.Toolbar;
 import com.gwtext.client.widgets.ToolbarButton;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
@@ -26,7 +28,9 @@ import edu.stanford.bmir.protege.web.client.project.Project;
 import edu.stanford.bmir.protege.web.client.rpc.data.EntityData;
 import edu.stanford.bmir.protege.web.client.rpc.data.ValueType;
 import edu.stanford.bmir.protege.web.client.rpc.data.layout.PortletConfiguration;
+import edu.stanford.bmir.protege.web.client.ui.library.msgbox.MessageBox;
 import edu.stanford.bmir.protege.web.client.ui.portlet.AbstractOWLEntityPortlet;
+import edu.stanford.bmir.protege.web.client.ui.search.SearchUtil;
 import edu.stanford.bmir.protege.web.shared.DataFactory;
 import edu.stanford.bmir.protege.web.shared.entity.OWLEntityData;
 import edu.stanford.bmir.protege.web.shared.entity.OWLNamedIndividualData;
@@ -196,7 +200,50 @@ public class IndividualsListPortlet extends AbstractOWLEntityPortlet implements 
         }
     }
 
-    protected Widget createSearchField() {
+
+
+    /**
+     * Experimentation by Hemed
+     * @return
+     * TODO: Do selection based only on the instance of the selected class.
+     */
+    protected Component createSearchField() {
+        final TextField searchField = new TextField("Search: ", "search");
+        searchField.setSelectOnFocus(true);
+        searchField.setAutoWidth(true);
+        searchField.setEmptyText("Search for individuals");
+        searchField.addListener(new TextFieldListenerAdapter() {
+            @Override
+            public void onSpecialKey(final Field field, final EventObject e) {
+                if (e.getKey() == EventObject.ENTER) {
+                    SearchUtil searchUtil = new SearchUtil(
+                            getProjectId(), getSelectionModel(), getSearchAsyncCallback()
+                    );
+                    searchUtil.setBusyComponent(searchField);
+                    searchUtil.setSearchedValueType(ValueType.Instance);
+                    searchUtil.search(searchField.getText());
+                }
+            }
+        });
+        return searchField;
+    }
+
+    /**
+     * Callback
+     * @return
+     */
+    protected AsyncCallback<Boolean> getSearchAsyncCallback() {
+        return new AsyncCallback<Boolean>() {
+            public void onFailure(Throwable caught) {
+                MessageBox.showAlert("Search error", "An error occurred during the search. Please try again.");
+            }
+
+            public void onSuccess(Boolean result) {
+            }
+        };
+    }
+
+    /**protected Widget createSearchField() {
         final TextField searchField = new TextField("Search: ", "search");
         searchField.setAutoWidth(true);
         searchField.setEmptyText("Type search string");
@@ -213,7 +260,7 @@ public class IndividualsListPortlet extends AbstractOWLEntityPortlet implements 
             }
         });
         return searchField;
-    }
+    }**/
 
     public List<EntityData> getSelection() {
         Optional<OWLNamedIndividualData> selection = individualsList.getSelectedEntity();

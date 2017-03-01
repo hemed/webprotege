@@ -20,6 +20,7 @@ public class OWLAPISearchManager {
     private BidirectionalShortFormProvider shortFormProvider;
 
     private LegacyEntityDataProvider entityDataProvider;
+    private boolean isEntitySearch = false;
 
     @Inject
     public OWLAPISearchManager(LegacyEntityDataProvider entityDataProvider, BidirectionalShortFormProvider shortFormProvider) {
@@ -27,7 +28,31 @@ public class OWLAPISearchManager {
         this.entityDataProvider = entityDataProvider;
     }
 
-    public List<EntityData> search(final String search) {
+    /**
+     * A wrapper method for searching only on the given entity
+     */
+    public List<EntityData> searchForEntity(final String queryString){
+        isEntitySearch = true;
+        return search(queryString, null);
+    }
+
+    /**
+     * A wrapper method for searching only on the given entity
+     */
+    public List<EntityData> searchForEntity(final String queryString, OWLEntity entity){
+        return search(queryString, entity);
+    }
+
+
+    /**
+     * A wrapper method for searching only on the given entity
+     */
+    public List<EntityData> search(final String queryString){
+        return search(queryString, null);
+    }
+
+
+    public List<EntityData> search(final String search, OWLEntity contextEntity) {
         final String normalizedSearchString;
         if(search.startsWith("*") && search.endsWith("*")) {
             normalizedSearchString = search.substring(1, search.length() - 1);
@@ -41,14 +66,25 @@ public class OWLAPISearchManager {
         Set<String> shortForms = shortFormProvider.getShortForms();
         Pattern pattern = Pattern.compile(normalizedSearchString, Pattern.CASE_INSENSITIVE);
 
-        
         for(String shortForm : shortForms) {
             Matcher matcher = pattern.matcher(shortForm);
             if(matcher.find()) {
-                Set<OWLEntity> entities = shortFormProvider.getEntities(shortForm);
-                for(OWLEntity entity : entities) {
+                //Restrict search only for a given entity. Does this work?
+                if (isEntitySearch) {
+                    OWLEntity entity = shortFormProvider.getEntity(shortForm);
                     EntityData entityData = entityDataProvider.getEntityData(entity);
                     result.add(entityData);
+                }
+                else if (contextEntity != null){
+                    //Restrict search to this given entity
+                    result.add(entityDataProvider.getEntityData(contextEntity));
+                }
+                else {
+                    Set<OWLEntity> entities = shortFormProvider.getEntities(shortForm);
+                    for (OWLEntity entity : entities) {
+                        EntityData entityData = entityDataProvider.getEntityData(entity);
+                        result.add(entityData);
+                    }
                 }
             }
         }

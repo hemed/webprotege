@@ -5,6 +5,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Component;
+import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Window;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.FormPanel;
@@ -30,6 +31,7 @@ public class SearchUtil {
     private SelectionModel selectionModel;
 
     private ValueType searchedValueType;
+
 
     private SearchGridPanel searchGrid;
 
@@ -80,6 +82,9 @@ public class SearchUtil {
             @Override
             public void onClick(Button button, EventObject e) {
                 doSelect(searchGrid.getSelection());
+                //After selection, close search window
+                window.close();
+                window.destroy();
             }
         });
 
@@ -100,14 +105,16 @@ public class SearchUtil {
         searchGrid.getProxy().setValueType(getSearchedValueType());
         searchGrid.setSearchFieldText(searchText);
 
-        if (searchText == null || searchText.trim().length() == 0) {
-            searchGrid.getStore().removeAll();
+        if (searchText == null || searchText.trim().length() > 3) {
+            edu.stanford.bmir.protege.web.client.ui.library.msgbox.MessageBox.showAlert("At least 3 characters must be specified for searching");
+            //searchGrid.getStore().removeAll(); //DONOT search for it
         }
         else {
             searchGrid.reload(projectId, searchText, searchedValueType);
+            window.show();
         }
 
-        window.show();
+        //window.show();
     }
 
     private void doSelect(final EntityData selection) {
